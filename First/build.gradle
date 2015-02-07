@@ -1,0 +1,56 @@
+apply plugin: 'java'
+apply plugin: 'apt'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+eclipse {
+  classpath {
+     downloadSources=true
+     downloadJavadoc=true
+  }
+}
+
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+      url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+  }
+  dependencies {
+    classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
+    classpath 'com.jimdo.gradle:gradle-apt-plugin:0.5-SNAPSHOT'
+  }
+}
+
+repositories {
+    mavenCentral()
+  maven {
+    name = "sonatype"
+    url = "https://oss.sonatype.org/content/repositories/snapshots/"
+  }
+}
+
+dependencies {
+  apt name: 'dagger-compiler-2.0-20150122.022637-13-jar-with-dependencies'
+//  compile name: 'dagger-compiler-2.0-20150122.022637-13-jar-with-dependencies'
+  
+  compile name: 'j2objc_annotations'
+  compile 'com.google.guava:guava:14.0'
+  compile 'javax.inject:javax.inject:1'
+  compile 'com.google.dagger:dagger:2.0-SNAPSHOT'
+  
+  compile name: 'dagger-2.0-SNAPSHOT-sources'
+  compile name: 'javax.inject-1-sources'
+} 
+
+// for local repositories
+// compile name: 'dagger-compiler-2.0-20150122.022637-13-jar-with-dependencies'
+repositories {
+  flatDir {
+    dirs 'lib'
+  }
+}
